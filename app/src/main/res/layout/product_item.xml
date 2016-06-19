@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_grey"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_product_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:src="@drawable/ic_placeholder" />
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/iv_product_image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/dark_gray"
+        android:textSize="15sp"
+        tools:text="Samsung galaxy S4" />
+
+    <TextView
+        android:id="@+id/tv_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_product_name"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/iv_product_image"
+        android:textColor="@color/basic_red"
+        android:textSize="14sp"
+        tools:text="Rs 350000" />
+
+    <TextView
+        android:id="@+id/tv_brand_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_product_name"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_sm_logo"
+        android:textColor="@color/colorPrimary"
+        tools:text="Chroma Retail" />
+
+</RelativeLayout>

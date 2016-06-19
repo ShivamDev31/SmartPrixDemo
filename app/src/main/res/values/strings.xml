@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SmartPrixDemo</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="error_while_fetching_categories">Error while fetching categories. Pull down to retry</string>
+    <string name="buy">Buy</string>
+</resources>
