@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.example.shivam.smartprixdemo.R;
 import com.example.shivam.smartprixdemo.fragments.CategoryFragment;
-import com.example.shivam.smartprixdemo.main.LogToast;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -20,6 +19,6 @@ public class MainActivity extends BaseActivity {
     private void addCategoryFragment() {
         CategoryFragment categoryFragment = CategoryFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.ll_fragment, categoryFragment, TAG)
-                .addToBackStack(null).commit();
+                .commit();
     }
 }
