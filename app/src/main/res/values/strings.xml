@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">SmartPrixDemo</string>
     <string name="no_internet">No internet connection</string>
-    <string name="error_while_fetching_categories">Error while fetching categories. Pull down to retry</string>
+    <string name="error_while_fetching_categories">Error while fetching categories. Pull down to retry.</string>
     <string name="buy">Buy</string>
+    <string name="error_fetching_products">Error while fetching products, pull down to retry.</string>
+    <string name="rs_symbol">"₹ "</string>
+    <string name="available_at">"Available at : %d stores"</string>
+    <string name="best_price">"Best Price : ₹ %s"</string>
+    <string name="no_stores_available_for_this_product">No stores available for this product.</string>
+    <string name="product_price_error">Error while fetching product details. Pull down to retry.</string>
+    <string name="buy_now_click">This application has support till here only.</string>
 </resources>

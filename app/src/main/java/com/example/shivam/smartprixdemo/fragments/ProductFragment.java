@@ -3,6 +3,7 @@ package com.example.shivam.smartprixdemo.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ public class ProductFragment extends Fragment {
     private ProgressBar pbLoader;
     private LinearLayout llError;
     private TextView tvErrorMessage;
+    private SwipeRefreshLayout srlRefresh;
 
     private CompositeSubscription compositeSubscription;
 
@@ -69,6 +71,9 @@ public class ProductFragment extends Fragment {
         rvProducts = (RecyclerView) view.findViewById(R.id.rv_products);
         pbLoader = (ProgressBar) view.findViewById(R.id.pb_loader);
         tvErrorMessage = (TextView) view.findViewById(R.id.tv_error_text);
+        srlRefresh = (SwipeRefreshLayout) view.findViewById(R.id.srl_refresh);
+        srlRefresh.setColorSchemeColors(getActivity().getResources().getColor(R.color.color_accent));
+        srlRefresh.setOnRefreshListener(new RefreshData());
         adapter = new ProductAdapter(getActivity());
         rvProducts.setAdapter(adapter);
         rvProducts.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -77,15 +82,16 @@ public class ProductFragment extends Fragment {
         TextView tvCategory = (TextView) view.findViewById(R.id.tv_products_header);
         tvCategory.setText(category);
 
-        getProductsFromServer(category);
+        getProductsFromServer();
     }
 
-    private void getProductsFromServer(String category) {
-        Map<String, Object> query = new HashMap<>();
+    private void getProductsFromServer() {
+        Map<String, String> query = new HashMap<>();
         query.put(Constants.TYPE, SEARCH);
         query.put(Constants.KEY, Constants.AUTH_KEY);
-        query.put(CATEGORY, category);
+        query.put(CATEGORY, getArguments().getString(CATEGORY_NAME));
 
+        srlRefresh.setRefreshing(false);
         showLoader(true);
         Subscription subs = MainApplication.getInstance().component().getSmartPrixApi().searchProducts(query)
                 .subscribeOn(Schedulers.io())
@@ -105,6 +111,7 @@ public class ProductFragment extends Fragment {
 
                     @Override
                     public void onNext(ProductsData productsData) {
+                        showLoader(false);
                         if (Constants.ResultType.SUCCESS.equals(productsData.requestStatus)) {
                             showError(false);
                             adapter.refreshData(productsData.requestResult.products);
@@ -121,6 +128,7 @@ public class ProductFragment extends Fragment {
         if (isVisible) {
             llError.setVisibility(View.VISIBLE);
             rvProducts.setVisibility(View.GONE);
+            tvErrorMessage.setText(R.string.error_fetching_products);
             showLoader(false);
         } else {
             llError.setVisibility(View.GONE);
@@ -131,8 +139,21 @@ public class ProductFragment extends Fragment {
     private void showLoader(boolean isVisible) {
         if (isVisible) {
             pbLoader.setVisibility(View.VISIBLE);
+            rvProducts.setVisibility(View.GONE);
+            llError.setVisibility(View.GONE);
+            srlRefresh.setRefreshing(false);
         } else {
             pbLoader.setVisibility(View.GONE);
+            rvProducts.setVisibility(View.VISIBLE);
+            srlRefresh.setRefreshing(false);
+        }
+    }
+
+    private class RefreshData implements SwipeRefreshLayout.OnRefreshListener {
+        @Override
+        public void onRefresh() {
+            srlRefresh.setRefreshing(true);
+            getProductsFromServer();
         }
     }
 

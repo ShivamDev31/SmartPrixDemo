@@ -2,6 +2,8 @@ package com.example.shivam.smartprixdemo.network.data;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Shivam on 18-06-2016.
  */
@@ -19,7 +21,7 @@ public class ProductPriceData {
     public static class Result {
 
         @SerializedName("id")
-        public int id;
+        public String id;
 
         @SerializedName("name")
         public String productName;
@@ -27,8 +29,11 @@ public class ProductPriceData {
         @SerializedName("img_url")
         public String imageUrl;
 
+        @SerializedName("price")
+        public String productPrice;
+
         @SerializedName("prices")
-        public Prices prices;
+        public List<Prices> prices;
     }
 
     public static class Prices {

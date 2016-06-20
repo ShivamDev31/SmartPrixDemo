@@ -81,13 +81,13 @@ public class CategoryFragment extends Fragment {
         rvCategories.setAdapter(adapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        getCategoriesFromServer();
+        getCategories();
     }
 
-    private void getCategoriesFromServer() {
+    private void getCategories() {
         SmartPrixApi smartPrixApi = MainApplication.getInstance().component().getSmartPrixApi();
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put(Constants.KEY, Constants.AUTH_KEY);
         map.put(Constants.TYPE, CATEGORIES);
         srlRefresh.setRefreshing(false);
@@ -128,7 +128,7 @@ public class CategoryFragment extends Fragment {
         @Override
         public void onRefresh() {
             srlRefresh.setRefreshing(true);
-            getCategoriesFromServer();
+            getCategories();
         }
     }
 
@@ -147,8 +147,11 @@ public class CategoryFragment extends Fragment {
     private void showLoader(boolean isVisible) {
         if (isVisible) {
             pbLoader.setVisibility(View.VISIBLE);
+            rvCategories.setVisibility(View.GONE);
+            llError.setVisibility(View.GONE);
         } else {
             pbLoader.setVisibility(View.GONE);
+            rvCategories.setVisibility(View.VISIBLE);
         }
     }
 

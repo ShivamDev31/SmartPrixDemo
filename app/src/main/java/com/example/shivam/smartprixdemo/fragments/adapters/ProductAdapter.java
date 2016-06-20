@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import com.example.shivam.smartprixdemo.R;
 import com.example.shivam.smartprixdemo.activities.MainActivity;
+import com.example.shivam.smartprixdemo.fragments.ProductPriceFragment;
 import com.example.shivam.smartprixdemo.main.CommonUtils;
+import com.example.shivam.smartprixdemo.main.LogToast;
 import com.example.shivam.smartprixdemo.network.data.ProductsData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +27,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Products
     private List<ProductsData.Results> productsList;
 
     public ProductAdapter(Context context) {
+        productsList = new ArrayList<>();
         this.mContext = context;
     }
 
@@ -38,7 +42,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Products
         CommonUtils.loadImage(mContext, productsList.get(position).productImageUrl,
                 R.drawable.ic_placeholder, holder.ivProductImage);
         holder.tvProductName.setText(productsList.get(position).productName);
-        holder.tvProductPrice.setText(productsList.get(position).productPrice);
+        holder.tvProductPrice.setText(mContext.getString(R.string.rs_symbol) + productsList.get(position).productPrice);
         holder.tvBrandName.setText(productsList.get(position).brandName);
     }
 
@@ -69,8 +73,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Products
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    LogToast.toast(mContext, "Clicked on :" + productsList.get(getLayoutPosition()).productName);
                     MainActivity activity = (MainActivity) mContext;
-                    activity.getSupportFragmentManager().beginTransaction();
+                    ProductPriceFragment priceFragment = ProductPriceFragment
+                            .newInstance(productsList.get(getLayoutPosition()).productId);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.ll_fragment, priceFragment)
+                            .addToBackStack(null).commit();
                 }
             });
         }

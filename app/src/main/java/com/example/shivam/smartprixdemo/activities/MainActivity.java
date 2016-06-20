@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity {
 
     private void addCategoryFragment() {
         CategoryFragment categoryFragment = CategoryFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.ll_fragment, categoryFragment, TAG).commit();
-        LogToast.log("Adding category fragment");
+        getSupportFragmentManager().beginTransaction().add(R.id.ll_fragment, categoryFragment, TAG)
+                .addToBackStack(null).commit();
     }
 }

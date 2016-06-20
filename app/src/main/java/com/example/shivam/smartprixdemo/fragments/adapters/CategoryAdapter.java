@@ -63,7 +63,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                     MainActivity activity = (MainActivity) mContext;
                     ProductFragment productFragment = ProductFragment.newInstance(categoryData.get(getLayoutPosition()));
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.ll_fragment, productFragment, TAG).commit();
+                            .replace(R.id.ll_fragment, productFragment, TAG).addToBackStack(null).commit();
                     LogToast.toast(mContext, categoryData.get(getLayoutPosition()));
                 }
             });

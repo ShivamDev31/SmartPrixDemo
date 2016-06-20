@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_placeholder" />
 
     <TextView
@@ -50,5 +51,11 @@
         android:src="@drawable/ic_sm_logo"
         android:textColor="@color/colorPrimary"
         tools:text="Chroma Retail" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/iv_product_image"
+        android:background="@color/white" />
 
 </RelativeLayout>
